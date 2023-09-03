@@ -1,14 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function App() {
+  const [age, setAge] = useState('');
+  const [lowerLimit, setLowerLimit] = useState('');
+  const [upperLimit, setUpperLimit] = useState('');
+
+  const calculateHeartRateLimits = (age) => {
+    if(!age){
+    setLowerLimit('');
+    setUpperLimit('');
+    } else {
+        const lower = Math.round((220 - age) * 0.65);
+        const upper = Math.round((220 - age) * 0.85);
+        setLowerLimit(lower.toString());
+        setUpperLimit(upper.toString());
+      }
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.title}>Age</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => {
+          setAge(text);
+          calculateHeartRateLimits(text);
+        }}
+        keyboardType="numeric"
+        value={age}
+      />
+      <Text>Limits:</Text>
+      <Text>{lowerLimit} - {upperLimit}</Text>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -18,3 +45,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
