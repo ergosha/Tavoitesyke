@@ -20,9 +20,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Age</Text>
+      <Text>Age</Text>
       <TextInput
-        style={styles.input}
         onChangeText={(text) => {
           setAge(text);
           calculateHeartRateLimits(text);
